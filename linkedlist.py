@@ -57,25 +57,15 @@ class linkedlist:
             self.len += 1
         temp.next = None
         self.tail = temp
-
     def __rawstr__(self):
-        data = ""
-        temp = self.head
-        i = 0
-        while temp and i < self.len:
-            data += str(temp.value)
-            temp = temp.next
-            if temp: data += ", "
-            i += 1
-        return data
+        return ", ".join(map(repr, self))
     def __str__(self):
         return "%s([%s])" % (
             self.__class__.__name__, 
             self.__rawstr__()
         )
     def __repr__(self):
-        self.__str__()
-
+        return str(self)
     def __iter__(self):
         self.iter = self.head
         return self
@@ -85,17 +75,14 @@ class linkedlist:
         temp = self.iter
         self.iter = self.iter.next
         return temp.value
-
     def __len__(self):
         return self.len
-
     def clear(self):
         self.head = None
         self.tail = None
         self.len = 0
     def copy(self):
         return linkedlist(self)
-
     def extend(self, data):
         self.len += len(data)
         for i in range(len(data)):
@@ -203,7 +190,6 @@ class linkedlist:
         l.next = n.next
         if l.next == None: self.tail = l
         return n.value
-
     def index(self, value, start = 0, end = -1):
         if end < 0: end += self.len
         if start < 0: start += self.len
@@ -227,10 +213,8 @@ class linkedlist:
             if temp.value == value: count += 1
             temp = temp.next
         return count
-
     def remove(self, value):
         self.pop(self.index(value))
-
     def __getitem__(self, index):
         if type(index) == int:
             if index < 0:
@@ -288,7 +272,6 @@ class linkedlist:
                     return out
         else:
             raise TypeError("%s indices must be integers or slices, not str" % self.__class__.__name__)
-
     def __setitem__(self, index, value):
         if index >= self.len or index <= -self.len:
             raise IndexError("%s assignment index out of range" % self.__class__.__name__)
@@ -298,7 +281,6 @@ class linkedlist:
         for i in range(index):
             temp = temp.next
         temp.value = value
-
     def swap(self, a, b):
         if a < 0: a += self.len
         if b < 0: b += self.len
@@ -330,7 +312,6 @@ class linkedlist:
             h.next = l
         self.head = h
         self.tail.next = None
-        
 
 if __name__ == "__main__":
 
